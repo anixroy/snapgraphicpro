@@ -1,1 +1,807 @@
-# snapgraphicpro
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snsp Graphic Pro - YouTube Thumbnail Designer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      .sticky-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9); /* Darker background */
+        color: #fff;
+        padding: 1rem 0;
+        z-index: 100;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add shadow for better separation */
+      }
+      .sticky-header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff;
+      }
+      .nav-links ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+      }
+      .nav-links ul li {
+        margin-left: 2rem;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 600; /* Use a semi-bold font weight */
+        transition: color 0.3s ease;
+        padding: 0.5rem 0; /* Add some padding to the links */
+        display: block;
+      }
+      .nav-links a:hover {
+        color: #ff0000; /* Red hover color */
+      }
+      .hero-section {
+        text-align: center;
+        padding: 8rem 0;
+        background-color: #f9f9f9;
+      }
+      .hero-section h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 1rem;
+        line-height: 1.2; /* Improved line height for headings */
+      }
+      .hero-section p {
+        font-size: 1.2rem;
+        color: #555;
+        margin-bottom: 2rem;
+        line-height: 1.7;
+      }
+      .btn {
+        display: inline-block;
+        background-color: #ff0000;
+        color: #fff;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+        font-size: 1.1rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add shadow */
+        border: none;
+      }
+      .btn:hover {
+        background-color: #cc0000;
+      }
+      .about-me-section {
+        padding: 6rem 0;
+      }
+      .about-me-section h2 {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 2rem;
+        text-align: center;
+        line-height: 1.2;
+      }
+      .about-me-section p {
+        font-size: 1.1rem;
+        color: #333;
+        line-height: 1.8;
+      }
+      .services-offered-section {
+        padding: 6rem 0;
+        background-color: #f9f9f9;
+      }
+      .services-offered-section h2 {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 2rem;
+        text-align: center;
+        line-height: 1.2;
+      }
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      .service-card {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+      .service-card h3 {
+        font-size: 1.5rem;
+        color: #000;
+        margin-bottom: 1rem;
+        font-weight: bold;
+      }
+      .service-card p {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.7;
+      }
+
+      .portfolio-section {
+        padding: 6rem 0;
+      }
+      .portfolio-section h2 {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 2rem;
+        text-align: center;
+        line-height: 1.2;
+      }
+      .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      .portfolio-item {
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .portfolio-item:hover {
+          transform: translateY(-10px);
+      }
+      .portfolio-item img {
+        width: 100%;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+      .portfolio-item:hover img {
+        transform: scale(1.05);
+      }
+      .before-after-section {
+        padding: 6rem 0;
+        background-color: #f9f9f9;
+      }
+      .before-after-section h2 {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 2rem;
+        text-align: center;
+        line-height: 1.2;
+      }
+      .before-after-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      .before-after-image {
+        position: relative;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      .before-after-image img {
+        width: 100%;
+        display: block;
+      }
+      .before-after-label {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 0.3rem;
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+      .before-after-label.after {
+        background-color: #ff0000;
+      }
+      .testimonials-section {
+        padding: 6rem 0;
+      }
+      .testimonials-section h2 {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 2rem;
+        text-align: center;
+        line-height: 1.2;
+      }
+      .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      .testimonial-card {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .testimonial-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+      .testimonial-card img {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 1rem auto;
+      }
+      .testimonial-card p {
+        font-style: italic;
+        color: #555;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        line-height: 1.7;
+      }
+      .testimonial-card cite {
+        font-weight: bold;
+        color: #333;
+        font-size: 1rem;
+      }
+      .testimonial-card cite span {
+        display: block;
+        font-style: normal;
+        color: #777;
+        font-size: 0.9rem;
+      }
+
+      .pricing-section {
+        padding: 6rem 0;
+        background-color: #f9f9f9;
+      }
+      .pricing-section h2 {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 2rem;
+        text-align: center;
+        line-height: 1.2;
+      }
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      .pricing-card {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .pricing-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+      .pricing-card h3 {
+        font-size: 1.5rem;
+        color: #000;
+        margin-bottom: 1rem;
+        font-weight: bold;
+      }
+      .pricing-card .price {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #ff0000;
+        margin-bottom: 1.5rem;
+      }
+      .pricing-card ul {
+        list-style: none;
+        margin-bottom: 2rem;
+        padding: 0;
+      }
+      .pricing-card ul li {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #eee;
+        font-size: 1rem;
+        color: #555;
+      }
+      .pricing-card ul li:last-child {
+        border-bottom: none;
+      }
+      .pricing-card .btn {
+        display: inline-block;
+        background-color: #ff0000;
+        color: #fff;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+        border: none;
+      }
+      .pricing-card .btn:hover {
+        background-color: #cc0000;
+      }
+
+      .contact-section {
+        padding: 6rem 0;
+      }
+      .contact-section h2 {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 2rem;
+        text-align: center;
+        line-height: 1.2;
+      }
+      .contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      .contact-form .form-group {
+        margin-bottom: 1.5rem;
+      }
+      .contact-form .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #333;
+        font-size: 1rem;
+      }
+      .contact-form .form-group input,
+      .contact-form .form-group textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 0.3rem;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+      .contact-form .form-group input:focus,
+      .contact-form .form-group textarea:focus {
+        outline: none;
+        border-color: #ff0000;
+        box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+      }
+      .contact-form .form-group textarea {
+        height: 150px;
+        resize: vertical;
+      }
+      .contact-form .btn {
+        display: inline-block;
+        background-color: #ff0000;
+        color: #fff;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+        font-size: 1.1rem;
+        border: none;
+        width: 100%;
+        text-align: center;
+      }
+      .contact-form .btn:hover {
+        background-color: #cc0000;
+      }
+
+      .contact-info {
+        margin-top: 3rem;
+        text-align: center;
+      }
+      .contact-info h3{
+        font-size: 1.5rem;
+        color: #000;
+        margin-bottom: 1rem;
+        font-weight: bold;
+      }
+      .contact-info p{
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+      }
+      .contact-info a {
+        display: inline-block;
+        margin: 0 1rem;
+        color: #333;
+        font-size: 1.5rem; /* Increased icon size */
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .contact-info a:hover {
+        color: #ff0000;
+      }
+      .contact-info .qr-code img {
+        max-width: 150px; /* Increased QR code size */
+        margin-top: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .footer {
+        background-color: #000;
+        color: #fff;
+        padding: 1rem 0;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+      .footer p{
+        line-height: 1.7;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .nav-links ul {
+          display: none;
+          position: fixed;
+          top: 80px; /* Adjust based on header height */
+          left: 0;
+          width: 100%;
+          background-color: rgba(0, 0, 0, 0.95);
+          flex-direction: column;
+          text-align: center;
+          padding: 1rem 0;
+          z-index: 1000;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .nav-links.active ul {
+          display: flex;
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .nav-links ul li {
+          margin: 1rem 0;
+        }
+        .nav-links ul li a{
+            padding: 1rem;
+            border-bottom: 1px solid #333;
+        }
+        .nav-links ul li:last-child a{
+            border-bottom: none;
+        }
+
+        .menu-icon {
+          display: block;
+          color: #fff;
+          font-size: 1.5rem;
+          cursor: pointer;
+        }
+        .sticky-header .container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .hero-section h1 {
+          font-size: 2.5rem;
+        }
+        .hero-section p {
+          font-size: 1.1rem;
+        }
+        .btn {
+          font-size: 1rem;
+          padding: 1rem 1.75rem;
+        }
+        .about-me-section h2,
+        .services-offered-section h2,
+        .portfolio-section h2,
+        .before-after-section h2,
+        .testimonials-section h2,
+        .pricing-section h2,
+        .contact-section h2{
+            font-size: 2rem;
+        }
+        .services-grid,
+        .portfolio-grid,
+        .before-after-container,
+        .testimonial-grid,
+        .pricing-grid {
+          grid-template-columns: 1fr;
+        }
+        .contact-info a {
+            font-size: 1.2rem;
+        }
+        .contact-form {
+            padding: 1.5rem;
+        }
+      }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <header class="sticky-header">
+        <div class="container">
+            <div class="logo">K. M. Ashik</div>
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="menu-icon" id="menu-icon">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto">
+        <section id="hero" class="hero-section">
+            <h1>I Design <span class="text-red-500">Thumbnails</span> That Get Clicks</h1>
+            <p>Boost your YouTube views and engagement with compelling, click-worthy thumbnails.</p>
+            <a href="#portfolio" class="btn">View Portfolio</a>
+        </section>
+
+        <section id="about" class="about-me-section">
+            <h2>About Me</h2>
+            <p>
+                Hi, I'm Robin James, a passionate and experienced YouTube thumbnail designer dedicated to helping content creators like you stand out. With 5+ years in the industry, I specialize in creating visually stunning and strategically designed thumbnails that grab attention and drive clicks.  I understand the importance of a strong visual presence on YouTube, and I'm committed to delivering high-quality designs that not only look great but also accurately represent your brand and content. My goal is to help you increase your click-through rates, boost your views, and ultimately grow your channel.
+            </p>
+            <p>
+              I pride myself on my ability to understand your unique needs and style, and I work closely with you to ensure that the final product exceeds your expectations.  Let me help you take your YouTube channel to the next level with professional, eye-catching thumbnails.
+            </p>
+        </section>
+
+        <section id="services" class="services-offered-section">
+            <h2>Services Offered</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Custom Thumbnail Design</h3>
+                    <p>Unique, eye-catching thumbnails tailored to your video content and brand.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Fast Delivery</h3>
+                    <p>Quick turnaround times to meet your deadlines and keep your content schedule on track.</p>
+                </div>
+                <div class="service-card">
+                    <h3>CTR Optimization</h3>
+                    <p>Thumbnails designed to maximize click-through rates and boost your video views.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Niche-Based Styles</h3>
+                    <p>Thumbnails crafted to appeal to your specific target audience and video niche.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="portfolio-section">
+            <h2>Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img <img <img src="https://i.imgur.com/dkcHJsL.png" alt="My Image">
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/900x506/EEE/31343C" alt="Thumbnail 2">
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/900x506/EEE/31343C" alt="Thumbnail 3">
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/900x506/EEE/31343C" alt="Thumbnail 4">
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/900x506/EEE/31343C" alt="Thumbnail 5">
+</div>
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/900x506/EEE/31343C" alt="Thumbnail 6">
+                </div>
+            </div>
+        </section>
+
+        <section id="before-after" class="before-after-section">
+            <h2>Before & After</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">See the impact of professional thumbnail design.</p>
+            <div class="before-after-container">
+                <div class="before-after-image">
+                    <img src="https://placehold.co/400x300/EEE/31343C" alt="Before Thumbnail 1">
+                    <div class="before-after-label">Before</div>
+                </div>
+                <div class="before-after-image">
+                    <img src="https://placehold.co/400x300/FF0000/FFFFFF" alt="After Thumbnail 1">
+                    <div class="before-after-label after">After</div>
+                </div>
+                <div class="before-after-image">
+                    <img src="https://placehold.co/400x300/EEE/31343C" alt="Before Thumbnail 2">
+                    <div class="before-after-label">Before</div>
+                </div>
+                <div class="before-after-image">
+                    <img src="https://placehold.co/400x300/FF0000/FFFFFF" alt="After Thumbnail 2">
+                    <div class="before-after-label after">After</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials-section">
+            <h2>Testimonials</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <img src="https://placehold.co/100x100/EEE/31343C" alt="Client 1">
+                    <p>"Ashik's thumbnails are amazing!  They've really helped increase my CTR."</p>
+                    <cite>@Client1 <span>Tech Channel</span></cite>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://placehold.co/100x100/EEE/31343C" alt="Client 2">
+                    <p>"Great communication and fast delivery.  I'm very happy with the results!"</p>
+                    <cite>@Client2 <span>Gaming Channel</span></cite>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="pricing-section">
+            <h2>Pricing Plans</h2>
+ <div class="pricing-card">
+    <h3>New Customer Offer – Trial Package</h3>
+    <div class="price">
+        <span style="text-decoration: line-through; color: gray;">$5</span>
+        <span style="color: #28a745; font-weight: bold;"> $1</span>
+    </div>
+    <ul>
+        <li>1 Custom Design</li>
+        <li>0 Revisions per Thumbnail</li>
+        <li>12-hour Delivery</li>
+        <li><strong>80% Discount</strong></li>
+    </ul>
+    <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_links_mailto#contact" class="btn" target="_blank">Order Now</a>
+</div>
+           <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Single Thumbnail</h3>
+                    <div class="price">$5</div>
+                    <ul>
+                        <li>1 Custom Design</li>
+                        <li>2 Revisions</li>
+                        <li>24-hour Delivery</li>
+                    </ul>
+                    <a href="https://forms.gle/8ET7Hr5KPTNxun7c8
+" class="btn">Order Now</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Bundle Pack (3 Thumbnails)</h3>
+                    <div class="price">$13</div>
+                    <ul>
+                        <li>3 Custom Designs</li>
+                        <li>3 Revisions per Thumbnail</li>
+                        <li>48-hour Delivery</li>
+                        <li>10% Discount</li>
+                    </ul>
+                    <a href="#contact" class="btn">Order Now</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Monthly Plan (5 Thumbnails)</h3>
+                    <div class="price">$21</div>
+                    <ul>
+                        <li>5 Custom Designs</li>
+                        <li>3 Revisions per Thumbnail</li>
+                        <li>24-hour Delivery</li>
+                        <li>Priority Support</li>
+                        <li>15% Discount</li>
+                    </ul>
+                    <a href="#contact" class="btn">Order Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <h2>Contact Me</h2>
+            <div class="contact-form">
+                <form id="contact-form" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <h3>Contact Info</h3>
+                <p>Feel free to reach out to me through any of the following channels:</p>
+                <div>
+                    <a href="https://bd.linkedin.com/in/snap-graphic-904260356" target="_blank">
+  <i class="fab fa-linkedin"></i>
+</a>
+                    <a href="https://instagram.com/snapgraphicpro" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:snapgraphicpro@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+                <div class="qr-code">
+                     <img src="https://placehold.co/150x150/EEE/31343C?text=Contact+Me" alt="Contact QR Code">
+                     <p>Scan to Contact</p>
+                </div>
+                <p style="margin-top: 2rem; font-weight: bold; font-size: 1.2rem;">Let's Work Together!</p>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Robin James. All rights reserved.</p>
+        <p>Designed and Developed by K. M. Ashik</p>
+    </footer>
+
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const navLinks = document.querySelector('.nav-links');
+        const navLinksList = document.querySelector('.nav-links ul');
+
+        menuIcon.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        navLinksList.addEventListener('click', (event) => {
+            if (event.target.tagName === 'A') {
+                navLinks.classList.remove('active');
+            }
+        });
+
+
+        document.addEventListener('click', (event) => {
+            if (navLinks.classList.contains('active') && !navLinks.contains(event.target) && event.target !== menuIcon) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+
+        const contactForm = document.getElementById('contact-form');
+
+        contactForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (!name || !email || !message) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            console.log('Form submitted:', { name, email, message });
+            alert('Thank you for your message! I will get back to you as soon as possible.');
+            contactForm.reset();
+        });
+    </script>
+</body>
+</html>
